@@ -1,5 +1,5 @@
 ## Spring-Boot-Project 👋
-이 프로젝트는 스프링 웹 미니 프로젝트입니다.
+이 프로젝트는 스프링 웹 미니 😊 프로젝트입니다.
 <!-- 타이틀 부분 -->
 ![header](https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=0,2,2,5,30&height=200&section=header&text=정인%20GitHuB&fontSize=50&fontAlign=81)
 ![reversal](https://capsule-render.vercel.app/api?type=rect&text=이%20프로젝트는&fontAlign=30&fontSize=30&desc=스프링%20웹%20미니%20프로젝트입니다.&descAlign=60&descAlignY=50&theme=radical)
