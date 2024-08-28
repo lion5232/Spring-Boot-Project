@@ -1,5 +1,6 @@
 package com.example.demo.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,4 +29,16 @@ public class PostService {
 		// 커스텀 예외 상황
 		throw new DataNotFoundException("post not Found");
 	}
+	
+	public void create(Post post, String content) {
+		// Post 엔티티 생성
+		Post p = new Post();
+		// Post 엔티티에 데이터 세팅
+		//p.setSubject(subject);
+		p.setContent(content);
+		p.setCreateDate(LocalDateTime.now());
+		// PostRepository에 save() => 디비에 Post 테이블에 row데이터 1개 저장
+		this.postRepository.save(p);
+    }
+	
 }

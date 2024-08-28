@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Entity.Post;
-import com.example.demo.Repository.PostRepository;
 import com.example.demo.Service.PostService;
 
 import lombok.RequiredArgsConstructor;
@@ -46,11 +46,21 @@ public class AccommodationCotroller {
 //		return "post_detail";
 //	}
 	
-	@GetMapping("/post/detail/{id}")
+	@GetMapping("/detail/{id}")
 	  public String detail(Model model, @PathVariable("id") Integer id) {
 		 Post p = this.postService.getOnePost(id);
 		 model.addAttribute("post", p);
 	      return "post_detail";
-	  }
+	  } 
+	  @PostMapping("/create/{id}")
+	    public String createAnswer(Model model, @PathVariable("id") Integer id, @RequestParam(value="content") String content) {
+	        Post post = this.postService.getOnePost(id);
+	        // 답변을 저장한다.
+	        this.postService.create(post, content);
+	        
+	        return String.format("redirect:/detail/%s", id);
+	    }
+	
+	
 	
 }

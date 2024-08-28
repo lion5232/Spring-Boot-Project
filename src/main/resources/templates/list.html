@@ -7,7 +7,7 @@
 </head>
 <body>
     <!-- div: 영역 표시(구분) -->
-    <div container my-3>
+    <div class= "container my-3">
         <!-- 데이터 나열:table(목록) or ul/ol>li(메뉴) -->
         <h2>Post 목록</h2>
         <table class="table">
@@ -33,13 +33,14 @@
                             - th:href, ...
                 -->
                 <!-- posts 데이터에서 하나씩 꺼내서 데이터 한출 반복적으로 표현 -->
-                <tr th:each="post : ${post}"> <!--  반복되는 가장 상위 요소 <= 반복문 적용 -->
+                <tr th:each="post, loop : ${post}"> <!--  반복되는 가장 상위 요소 <= 반복문 적용 -->
 					<td th:text=" ${post.id}"></td>
 					<td>
-						<a th:href="@{|/Acco/post/detail/${post.id}|}"  th:text=" ${post.subject}"></a>
-<!-- 					<a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></a> -->
+						<a th:href="@{|/Acco/detail/${post.id}|}"  th:text=" ${post.subject}"></a>
 					</td>
-					<td th:text=" ${post.createDate}"></td>
+					<!--  타임리프의 시간 포멧팅 처리 함수를 활용 -->
+					<td th:text="${ #temporals.format( post.getCreateDate(), 'yyyy-MM-dd HH:MM:ss')  }"></td>
+					
             </tbody>
         </table>
     </div>
