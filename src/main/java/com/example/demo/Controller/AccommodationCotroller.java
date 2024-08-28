@@ -52,14 +52,14 @@ public class AccommodationCotroller {
 		 model.addAttribute("post", p);
 	      return "post_detail";
 	  } 
-	  @PostMapping("/create/{id}")
-	    public String createAnswer(Model model, @PathVariable("id") Integer id, @RequestParam(value="content") String content) {
-	        Post post = this.postService.getOnePost(id);
-	        // 답변을 저장한다.
-	        this.postService.create(post, content);
-	        
-	        return String.format("redirect:/detail/%s", id);
-	    }
+//	  @PostMapping("/create/{id}")
+//	    public String createAnswer(Model model, @PathVariable("id") Integer id, @RequestParam(value="content") String content) {
+//	        Post post = this.postService.getOnePost(id);
+//	        // 답변을 저장한다.
+//	        this.postService.create(post, content);
+//	        
+//	        return String.format("redirect:/detail/%s", id);
+//	    }
 	
 	  //Post 목록 글쓰기
 	  @GetMapping("/create") // 글작성 넘기기
@@ -70,6 +70,7 @@ public class AccommodationCotroller {
 	  public String create(@RequestParam(value="subject") String subject,
 			  							@RequestParam(value="content") String content) {
 		  //post새글 ->db저장
+		  this.postService.create(subject, content);
 		  //post목록으로 이동
 		  return "redirect:/Acco/list";
 	  }

@@ -1,8 +1,14 @@
- <!-- 껍데기 씌우기 -->
- <html layout:decorate="~{layout}">
- 
- <!--  body 밑에 자식이 여러개 있을 경우 대표하는 div로 감싸서 th:block에 매핑 시킨다 -->
-<div layout:fragment="content" >
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${ post.subject }"></title>
+    <!--/* 타임리프, 상속(전체스타일적용), 공통요소 삽입/대체등 기법을 활용해서 관리 */-->
+    <link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+</head>
+
+<body>
     <div class="container my-3">
         <!-- 타임리프 표준주석 : 개발자만 볼수 있다 -->
         <!--/* card 단위는 기본적으로 특정 콘텐츠 하나를 독립적 담는 구분 단위(라운드로 표현) */-->
@@ -52,8 +58,7 @@
 			<input type="submit" value="리뷰 등록"/>
 		</form>
       </div>
-	
-	<!-- 리뷰 목록 노출 -->
+            <!-- 리뷰 목록 노출 -->
     <div class="container my-3">
         <!-- 실습 5분, 리뷰 내용, 작성시간을 리스트로 표현하시오 -->
 
@@ -66,7 +71,8 @@
             </div>
         </div>
     </div>
-</div>
- 
+
+    
+</body>
 
 </html>

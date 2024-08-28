@@ -1,5 +1,24 @@
 <html layout:decorate="~{layout}">
-<div layout:fragment="content">
-	<h5>Post 등록</h5>
+<div layout:fragment="content"  class="container my-3">
+	<!-- form 태그 사용, 입력 2개(제목, 내용), post 등록 버튼  -->
+	<h5 class="my-3 border-bottom  pb-1'" th:text="${'Post 관리'}"></h5>
+	<!-- 제목, 내용 입력 폼 -->
+	<form method="post">
+				<div class="my-3">
+				<!--  id값이 subject인 요소를 위한 라벨 -->
+					<label for="subject" class="form-label">제목</label>
+					<input type="text" name="subject" id = subject  placeholder="제목을 입력하세요" required=> <!-- placeholder 힌트ㄴ -->
+				</div>
+				<div class="my-3">
+					<label for="content" class="form-label">본문</label>
+					<!--  여러줄에 걸쳐서 작성 -->
+					<textarea name="content" id = content class="form-control" rows="9"></textarea>
+				</div>
+				<div class="my-3">
+					<input type="submit" value="저장하기" class="btn btn-warning"> 
+					<!-- 버튼을 누르면 action이 없으니까 자동으로 자신의 url로 요청을 하는데 
+					이 요청은 컨트롤러에서 처리하고 그중에서 PostMapping에서 처리한다. -->
+				</div>
+	</form>
 </div>
 </html>
