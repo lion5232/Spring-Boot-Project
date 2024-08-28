@@ -1,0 +1,114 @@
+
+<aside  th:fragment="sagment_left" class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: white" >
+ <!-- Brand Logo -->
+  <a href="/" class="brand-link">
+    <img src="/dist/img/owl_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+      style="opacity: .8">
+    <span class="brand-text font-weight-light" style="color: rgb(55, 221, 152);" >WELCOME !</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div class="info">
+        <a href="/" class="d-block "  style="color: black; font-weight: bold " >사용자명</a>
+         
+      </div>
+    </div>
+ 
+   
+<style>
+  .nav-item1 {
+    background-color:white;
+  }
+  .nav-item1:hover {
+  	background-color: gainsboro;
+  }
+</style>
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu" data-accordion="false">
+
+        <li class="nav-item1" >
+          <a href="/TourSpot/list" class="nav-link link-primary">
+            <i class="nav-icon fas fa-th " style="color: rgb(55, 221, 152);"  ></i>
+            <p  class='hover' style="color: black; font-weight: bold ">
+              관광지  
+            </p>
+          </a>
+         </li>
+         
+         <li class="nav-item1">
+          <a href="/meal/list" class="nav-link">
+            <i class="nav-icon fas fa-th" style="color: rgb(55, 221, 152);" ></i>
+            <p style="color: black; font-weight: bold ">
+              음식점              
+            </p>
+          </a>
+           </li>
+          
+          <li class="nav-item1">
+          	<a href="/Acco/list" class="nav-link">
+           	 <i class="nav-icon fas fa-th" style="color: rgb(55, 221, 152);" ></i> <!-- 정사각형 아이콘 -->
+            	<p style="color: black; font-weight: bold ">
+            	 숙박시설
+              	<span class="right badge badge-danger">New</span>
+           
+            	</p>
+        	 </a>
+        	</li>
+          
+          <li class="nav-item1">
+	          		<a class="nav-link"
+			            href="#"
+			            data-bs-toggle="collapse"
+			            data-bs-target="#main1"
+			            aria-expanded="false"
+			            onclick="toggleSubMenu('main2')"
+         			 >
+	            	<i class="nav-icon fas fa-th" style="color: rgb(55, 221, 152);" ></i>
+	            	<p style="color: black; font-weight: bold ">
+	              	마이페이지
+	              	    	<span class="right badge badge-danger">New</span>
+	            	</p>
+	          	</a>
+	      <div class="collapse" id="main2">
+	            <ul class="nav flex-column">
+		              <li class="nav-item1">
+		                <a class="nav-link" href="#" style="color: black; font-weight: bold ">- 회원정보</a>
+		              </li>
+		              <li class="nav-item1">
+		                <a class="nav-link" href="#" style="color: black; font-weight: bold ">- 작성한글</a>
+		              </li>
+	            </ul>
+          </div>    
+			<script>
+		  function toggleSubMenu(submenuId) {
+			    var submenu = document.getElementById(submenuId);
+			    if (submenu.style.display === 'block') {
+			      submenu.style.display = 'none';
+			    } else {
+			      submenu.style.display = 'block';
+			    }
+			  }
+		  </script>         
+          </li> 	      
+	  	
+ 
+          
+         
+       
+        
+      </ul>
+    </nav>
+	
+    <!-- /.sidebar-menu -->
+  </div>
+ 
+  <!-- /.sidebar -->
+</aside>
+

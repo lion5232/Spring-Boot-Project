@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>TourSpot_LIST</title>
+</head>
+<body>
+
+<!-- 상속을 통해 레이아웃 적용 -->
+<html layout:decorate="~{lib/layout}">
+
+<div layout:fragment="content" class="wrapper">
+    <!-- Navbar -->
+	<div th:replace="~{lib/navi.html :: sagment_navi}"></div>
+    <!-- /.navbar -->
+    
+        <!-- Main Sidebar Container -->
+	<div th:replace="~{lib/left.html :: sagment_left}"></div>
+ 	<!-- /.content-wrapper --> 
+<!-- 	<div th:replace="~{lib/right.html :: sagment_aside}"></div> -->
+	
+    <!-- Control Sidebar -->
+	<div th:replace="~{lib/footer.html :: sagment_footer}"></div>
+    <!-- /.control-sidebar -->
+
+ </div> 
+<div class="footer"></div>
+</body>
+</html>
