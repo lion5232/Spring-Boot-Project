@@ -61,6 +61,34 @@ public class AccommodationCotroller {
 	        return String.format("redirect:/detail/%s", id);
 	    }
 	
-	
+	  //Post 목록 글쓰기
+	  @GetMapping("/create") // 글작성 넘기기
+	  public String create() {
+		  return "post_form";
+	  }
+	  @PostMapping("/create") //글 작성 db로 넘겨 처리
+	  public String create(@RequestParam(value="subject") String subject,
+			  							@RequestParam(value="content") String content) {
+		  //post새글 ->db저장
+		  //post목록으로 이동
+		  return "redirect:/Acco/list";
+	  }
+	  @GetMapping("/modify/{id}") //post 글 수정
+	  public String modify(Model model, @PathVariable("id") Integer id) {
+		  
+		  return "post_form";
+	  }	 
+	  @PostMapping("/modify/{id}") //post 글 수정
+	  public String modify(Model model, @PathVariable("id") Integer id,
+			  							 @RequestParam(value="subject") String subject,
+			  							 @RequestParam(value="content") String content) {
+		  
+		  return "redirect:/Acco/list";
+	  }
+	  // 글 삭제, 보안적으로 중요하면 post변경
+	  @GetMapping("/delete/{id}")
+	  public String delete(@PathVariable("id") Integer id) {
+		  return "redirect:/Acco/list";
+	  }
 	
 }
