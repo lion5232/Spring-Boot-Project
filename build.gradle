@@ -52,7 +52,9 @@ dependencies {
 	// 타임리프 템플릿 엔진
   	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
-
+	
+	// 입력창 유효성 검사 및 폼 데이터 관리 모듈
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 /*	  	
     
     // JUnit
