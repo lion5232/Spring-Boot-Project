@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Dto.PostForm;
+import com.example.demo.Dto.ReviewForm;
 import com.example.demo.Entity.Post;
 import com.example.demo.Service.PostService;
 
@@ -50,7 +51,9 @@ public class AccommodationCotroller {
 //	}
 	
 	@GetMapping("/detail/{id}")
-	  public String detail(Model model, @PathVariable("id") Integer id) {
+	  public String detail(Model model, @PathVariable("id") Integer id, 
+			  //폼 객체를 인자로 전달해서 바인딩 하는것만으로도 타임리프에 전달된다.
+			  ReviewForm reviewForm) {
 		 Post p = this.postService.getOnePost(id);
 		 model.addAttribute("post", p);
 	      return "post_detail";

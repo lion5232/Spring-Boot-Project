@@ -35,7 +35,14 @@
 			action => url, 데이터를 보내고자 하는 목적지 주소
 			만약, 생략된다면?	현재 보여지는 페이지의 URL로 전송한다
 		-->
-		<form th:action="@{|/review/create/${post.id}|}" method="post">
+		<form th:action="@{|/review/create/${post.id}|}" method="post"
+			th:object="${reviewForm}">
+		<!-- 오류가 존재한다면  오류 내용을 화면에 보인다 => 유효성 검증 -->	
+		<!-- 공통요소(2개이상 발견   => 단독 html(조각들만 모아있는) 으로 구성하여서 replace -->	
+			<!-- 폼 에러 파트 공통 모듈로 대체 처리 -->
+				<div th:replace="~{frag :: formErrorFrag}"></div>
+			
+		
 			<!-- input : 사용자의 입력을 받는 요소(텍스트,비밀번호,이메일,날짜,수치,..숨김) 
 				 키 : name 속성
 				 값 : value 속성

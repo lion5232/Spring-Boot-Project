@@ -1,0 +1,9 @@
+<!-- 
+		- 모든 페이지에 공통으로 들어가는 조각들을 모은 html 
+		- 입력폼 오류를 처리하는 모듈을 frag.html에 기술하여 3개 html에 각각 삽입하시오
+		- 이름 : formErrorFrag
+		- 주의! #fields를 받을려면 form으로 바인딩한 폼객체가 전달되야 한다.
+-->
+<div th:fragment="formErrorFrag" class="alert alert-danger" role="alert" th:if="${ #fields.hasAnyErrors() }">
+    <div th:each="err : ${ #fields.allErrors() }" th:text="${err}" />
+</div>
