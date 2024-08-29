@@ -41,7 +41,7 @@ public class ReviewController {
 	        // 오류 검사 추가
 	        if(bindingResult.hasErrors()) {
 	        	model.addAttribute("post",post);
-	        	return "post_detail"  ;
+	        	return "post_detail" ;
 	        }
 	        // TODO #1-3 : 서비스를 통해서 Review 엔티티 생성하여 디비에 저장 (서비스 생성, 레퍼지토리사용, 엔티티사용)
 	        // 1-3 구현, 실습 2분
