@@ -18,6 +18,9 @@
                 <div class="badge bg-light text-primary text-start" th:text="${ #temporals.format( post.getCreateDate(), 'yyyy-MM-dd HH:mm:ss')  }"></div>
             </div>
         </div>
+        <!--  수정 및 삭제 버튼 추가 -->
+              <a th:href="|/Acco/modify/${post.id}|"  class="btn btn-success">수정</a>
+              <a th:href="|/Acco/delete/${post.id}|"  class="btn btn-danger">삭제</a>
     </div>
     
     <!-- 리뷰 등록 -->

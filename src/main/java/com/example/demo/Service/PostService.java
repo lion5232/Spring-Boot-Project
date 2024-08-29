@@ -41,4 +41,14 @@ public class PostService {
 		this.postRepository.save(p);
     }
 	
+	//post 수정하기 기능
+	public void modify(Post post) {
+		this.postRepository.save(post);
+	}
+
+	public void delete(Post post) {
+		this.postRepository.delete(post);
+		
+	}
+	
 }

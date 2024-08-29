@@ -92,20 +92,35 @@ public class AccommodationCotroller {
 		  return "redirect:/Acco/list";
 	  }
 	  @GetMapping("/modify/{id}") //post 글 수정
-	  public String modify(Model model, @PathVariable("id") Integer id) {
-		  
+	  public String modify(PostForm postForm, @PathVariable("id") Integer id ) {
+		 Post post = this.postService.getOnePost(id);
+		 postForm.setSubject(post.getSubject());
+		 postForm.setContent(post.getContent());
 		  return "post_form";
 	  }	 
 	  @PostMapping("/modify/{id}") //post 글 수정
-	  public String modify(Model model, @PathVariable("id") Integer id,
-			  							 @RequestParam(value="subject") String subject,
-			  							 @RequestParam(value="content") String content) {
-		  
-		  return "redirect:/Acco/list";
+	  public String modify( @Valid PostForm postForm, BindingResult bindingResult  ,
+			  							  @PathVariable("id") Integer id ) { 
+			 // 검증 결과 문제 존재하는가?
+		  if(bindingResult.hasErrors() ) {
+			  //더이상 진행하지 않고, 입력화면으로 이동, postForm 객체, bindingResult에러는 타임리프로 전달 랜더링 
+			  return "post_form";
+		  }
+		 Post post= this.postService.getOnePost(id); // 원본 post데이터 획득(엔티티)
+		 post.setSubject(postForm.getSubject());
+		 post.setContent(postForm.getContent());
+		 this.postService.modify(post);
+		  return "redirect:/Acco/detail/" + id;
 	  }
 	  // 글 삭제, 보안적으로 중요하면 post변경
 	  @GetMapping("/delete/{id}")
 	  public String delete(@PathVariable("id") Integer id) {
+		  
+		  // 1. post 객체 획득
+			 Post post= this.postService.getOnePost(id); // 원본 post데이터 획득(엔티티)
+		  // 2. 삭제 -> 서비스가 담당
+			 this.postService.delete(post);
+			 
 		  return "redirect:/Acco/list";
 	  }
 	
