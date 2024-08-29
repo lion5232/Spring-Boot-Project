@@ -2,14 +2,23 @@ package com.example.demo.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.demo.Dto.PostForm;
+import com.example.demo.Dto.ReviewForm;
 import com.example.demo.Entity.Post;
+import com.example.demo.Entity.Review;
 import com.example.demo.Service.PostService;
 import com.example.demo.Service.ReviewService;
 
+import jakarta.validation.Valid;
+
+@RequestMapping("/review")
 @Controller
 public class ReviewController {
 		@Autowired
@@ -23,7 +32,7 @@ public class ReviewController {
 	     * @return
 	     */
 	    // TODO #1-2 : /review/create/{id}를 매핑하는 메소드구현
-	   @PostMapping("/review/create/{id}")
+	   @PostMapping("/create/{id}")
 	    public String create(@PathVariable("id") Integer id,
 	                         @RequestParam(value="content") String content) {
 	        Post post = this.postService.getOnePost(id);
@@ -38,4 +47,35 @@ public class ReviewController {
 	    return "redirect:/Acco/detail/" + id;
 	    }
 	   
+	   // 리뷰 삭제, 보안적으로 중요하면 post변경
+		  @GetMapping("/delete/{id}")
+		  public String delete(@PathVariable("id") Integer id) {
+			  //리뷰 ID => 리뷰 엔티티 획득
+			  Review review = this.reviewService.selectOneReview(id);
+			  this.reviewService.delete(review);
+			  return "redirect:/Acco/detail/" + review.getPost().getId();
+		  }
+		  
+		  // 리뷰수정
+		  @GetMapping("/modify/{id}") 
+		  public String modify(ReviewForm reviewForm, @PathVariable("id") Integer id) {
+			  Review review = this.reviewService.selectOneReview(id);
+			  reviewForm.setContent(review.getContent());
+			  return "review_form";
+		  }
+		  
+		  @PostMapping("/modify/{id}")
+		  public String modify( @Valid ReviewForm reviewForm, BindingResult bindingResult  ,
+				  							  @PathVariable("id") Integer id ) { 
+				 // 검증 결과 문제 존재하는가?
+			  if(bindingResult.hasErrors() ) {
+				  //더이상 진행하지 않고, 입력화면으로 이동, postForm 객체, bindingResult에러는 타임리프로 전달 랜더링 
+				  return "review_form";
+			  }
+			 Review review= this.reviewService.selectOneReview(id); // 원본 post데이터 획득(엔티티)
+			 review.setContent(reviewForm.getContent());
+			 this.reviewService.modify(review);
+			  return "redirect:/Acco/detail/" + review.getPost().getId();
+		  }
+
 }

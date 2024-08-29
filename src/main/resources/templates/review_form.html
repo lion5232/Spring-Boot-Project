@@ -1,0 +1,28 @@
+<html layout:decorate="~{layout}">
+<div layout:fragment="content"  class="container my-3">
+	<!-- form 태그 사용, 입력 2개(제목, 내용), post 등록 버튼  -->
+	<h5 class="my-3 border-bottom  pb-1'" th:text="${'Review 관리'}"></h5>
+	<!-- 제목, 내용 입력 폼 -->
+	<form method="post" th:object="${reviewForm}">
+			<!-- 
+						- th:object => 세팅 => 오류 메시지창 추가 (th:if 추가하여 오류가 존재할때만 노출)
+						- 오류 발생시(입력 안하고 등록하는 경우), 하위 div가 활성화되어서 메시지가 노출됨 
+						- 에러가 존재하면  해당 div가 노출됨
+				-->
+			<div class= "alert alert-danger" role="alert" th:if="${ #fields.hasAnyErrors() }">
+				<div th:each="err : ${ #fields.allErrors() }" th:text="${err}" />			
+			</div>
+				<div class="my-3">
+					<label for="content" class="form-label">본문</label>
+					<!--  여러줄에 걸쳐서 작성 -->
+				    <textarea th:field="*{content}" id = content class="form-control" rows="9" ></textarea> 
+					<!-- javascript -textarea 엔터키 작성 -->
+				</div>
+				<div class="my-3">
+					<input type="submit" value="저장하기" class="btn btn-warning"> 
+					<!-- 버튼을 누르면 action이 없으니까 자동으로 자신의 url로 요청을 하는데 
+					이 요청은 컨트롤러에서 처리하고 그중에서 PostMapping에서 처리한다. -->
+				</div>
+	</form>
+</div>
+</html>

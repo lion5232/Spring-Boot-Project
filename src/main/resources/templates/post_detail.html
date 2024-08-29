@@ -63,12 +63,16 @@
         <div class="card my-3 bg-warning" th:each="review : ${post.reviewList}">
             <div class="card-body">
                 <div class="card-text">
-                    [[ |${ review.content} -
-                        ${ #temporals.format( review.getCreateDate(), 'yyyy-MM-dd HH:mm:ss')  }|  ]]
+                	<pre th:text="${review.content} + ' - '  + ${#temporals.format(review.getCreateDate(), 'yyyy-MM-dd HH:mm:ss')}"></pre>
                 </div>
+            </div>
+            <div class=" card-footer ">
+            	<a th:href="|/review/modify/${review.id}|"  class="btn btn-info">Review 수정</a>
+          		<a th:href="|/review/delete/${review.id}|"  class="btn btn-danger">Review 삭제</a>
             </div>
         </div>
     </div>
+    
 </div>
  
 
