@@ -20,10 +20,11 @@ public class MainBorder {
 	public String main() {
 		return "index";
 	}
-	@GetMapping("/main")
-	public String main1() {
-		return "index2";
-	}
+	
+//	@GetMapping("/main")
+//	public String main1() {
+//		return "index2";
+//	}
  
 //	@GetMapping("/map")
 //	//@RequestMapping("/")

@@ -55,6 +55,12 @@ dependencies {
 	
 	// 입력창 유효성 검사 및 폼 데이터 관리 모듈
     implementation 'org.springframework.boot:spring-boot-starter-validation'
+    
+    // 스프링 시큐리티
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+  	// 타임리프에서 스프링시큐리티 사용을 위한 모듈
+  	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    
 /*	  	
     
     // JUnit
@@ -62,8 +68,7 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     
-    // 입력창 유효성 검사 및 폼 데이터 관리 모듈
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
+ 
     
     // 스프링 시큐리티
     implementation 'org.springframework.boot:spring-boot-starter-security'

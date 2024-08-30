@@ -1,54 +1,55 @@
-<!DOCTYPE html>
-<html>
+<html >
 <head>
 <meta charset="UTF-8">
 <title>Welcome</title>
+<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
 </head>
+
 <body>
-<div class="header"></div>
-<div class="container">
-        <div class="main">
-            <div class="title">Welcome!</div>
-            <div class="board">
-                <button class="TourSpot">관광지</button>
-                <button class="meal">음식점</button>
-                <button class="Acco">숙박시설</button>
-            </div>
-            <div class="user" id="user-links">
-                <a href="/jmt/signin" id="auth-link">로그인</a>
-                <a href="/jmt/signup" id="signup-link">회원가입</a>
-            </div>
-
-<!--             <div class="span"> -->
-<!--                 <span id="a">🍙</span> -->
-<!--                 <span id="b">🍕</span> -->
-<!--                 <span id="c">🍩</span> -->
-<!--                 <span id="d">🍦</span> -->
-<!--                 <span id="e">🍺</span> -->
-<!--                 <span id="f">🍭</span> -->
-<!--                 <span id="g">🌮</span> -->
-<!--                 <span id="h">🍟</span> -->
-<!--                 <span id="i">🍱</span> -->
-<!--             </div> -->
-        </div>
-    </div> 
-<div class="footer"></div>
-<script>
-	const TourSpot = document.querySelector('.TourSpot');
-	TourSpot.addEventListener('click', () => {
-	    location.href = '/TourSpot/list';
-	});
-	const Acco = document.querySelector('.Acco');
-	Acco.addEventListener('click', () => {
-	    location.href = '/Acco/list';
-	});
+	<div class="header"></div>
+	<div layout:fragment= "content" class="container">
+	        <div class="main">
+	            <div class="title">Welcome!</div>
+	            <div class="board">
+	                <button class="TourSpot">관광지</button>
+	                <button class="meal">음식점</button>
+	                <button class="Acco">숙박시설</button>
+	            </div>
+	            <div >
+	                <a th:href="@{/user/login}"  class="btn btn-dark">로그인</a>
+	                <a th:href="@{/user/signup}"  class="btn btn-dark">회원가입</a>
+	            </div>
 	
-	const meal = document.querySelector('.meal');
-	meal.addEventListener('click', () => {
-	    window.location.href = '/meal/list';
-	});
-
-
-</script>
+	<!--             <div class="span"> -->
+	<!--                 <span id="a">🍙</span> -->
+	<!--                 <span id="b">🍕</span> -->
+	<!--                 <span id="c">🍩</span> -->
+	<!--                 <span id="d">🍦</span> -->
+	<!--                 <span id="e">🍺</span> -->
+	<!--                 <span id="f">🍭</span> -->
+	<!--                 <span id="g">🌮</span> -->
+	<!--                 <span id="h">🍟</span> -->
+	<!--                 <span id="i">🍱</span> -->
+	<!--             </div> -->
+	        </div>
+	    </div> 
+	<div class="footer"></div>
+	<script>
+		const TourSpot = document.querySelector('.TourSpot');
+		TourSpot.addEventListener('click', () => {
+		    location.href = '/TourSpot/list';
+		});
+		const Acco = document.querySelector('.Acco');
+		Acco.addEventListener('click', () => {
+		    location.href = '/Acco/list';
+		});
+		
+		const meal = document.querySelector('.meal');
+		meal.addEventListener('click', () => {
+		    window.location.href = '/meal/list';
+		});
+	
+	
+	</script>
 </body>
 </html>
