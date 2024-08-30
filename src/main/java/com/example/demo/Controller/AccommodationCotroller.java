@@ -69,9 +69,9 @@ public class AccommodationCotroller {
 	
 	  //Post 목록 글쓰기
 	  @GetMapping("/create") // POST 글작성 넘기기
-	 // 매개변수로 바인딩한 POstForm 객체는 Model 객체없이 html(템플릿에 전달하여 사용 가능하다)
-	  public String create(PostForm postForm) {
-		  
+	 // 매개변수로 바인딩한 PostForm 객체는 Model 객체없이 html(템플릿에 전달하여 사용 가능하다)
+	  public String create(PostForm postForm,  Model model) {
+		  model.addAttribute("pageType", "write");
 		  return "post_form";
 	  }
 	  @PostMapping("/create") //글 작성 db로 넘겨 처리
@@ -95,10 +95,12 @@ public class AccommodationCotroller {
 		  return "redirect:/Acco/list";
 	  }
 	  @GetMapping("/modify/{id}") //post 글 수정
-	  public String modify(PostForm postForm, @PathVariable("id") Integer id ) {
+	  public String modify(PostForm postForm, @PathVariable("id") Integer id ,Model model) {
 		 Post post = this.postService.getOnePost(id);
 		 postForm.setSubject(post.getSubject());
-		 postForm.setContent(post.getContent());
+		 postForm.setContent(post.getContent()); 
+		 model.addAttribute("post", post);
+		 model.addAttribute("pageType", "detail");
 		  return "post_form";
 	  }	 
 	  @PostMapping("/modify/{id}") //post 글 수정

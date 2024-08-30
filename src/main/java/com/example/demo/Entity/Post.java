@@ -26,7 +26,7 @@ public class Post {
 	//GenerationType.IDENTITY: 데이터베이스의 자동 증가(AUTO_INCREMENT) 기능을 사용합니다.
 	// 즉, 새로운 엔티티가 추가될 때마다 id 값이 자동으로 증가하여 고유하게 유지됩니다.
 	 @GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Integer id;
 
 	// 컬럼임을 지정 + 문자열의 길이를 직접 지정
     // 한글 200자? ASCII2 200자? 테스트 필요
