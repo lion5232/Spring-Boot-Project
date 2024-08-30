@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -23,8 +25,12 @@ public class SecurityConfig {
 		http
 				//http.authorizeHttpRequests : http요청에 대한 인증().
 				// /** => 인증되지 않은 모든 페이지의 요청을 허가한다, 로그인 없이 접근 가능
+				// 모든 URL과 정적데이터 URL까지 허용
 				.authorizeHttpRequests( ( a ) ->a.requestMatchers
 				(new AntPathRequestMatcher("/**")).permitAll() )
+		
+		//서비스할때는 비활성 필요 ----------------------
+		// /h2-console/~ 모든 URL은 csrf에 대한 보안체크 무시한다.
 		.csrf( (b) -> 
 			b.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))) 
 		//h2-console 뒤의 모든 경로에 대해선 CSRF 보호가 필요한 URL 패턴을 설정하지 않고, 모든 URL 패턴에 대해 CSRF 보호를 적용하지 않도록 설정한다.
@@ -39,4 +45,11 @@ public class SecurityConfig {
 		//여기까지하면 h2-console에는 접속시 403오류로 csrf가 없어서 보안 이슈가 생긴다. => 설정에 csrf에 대한 예외 규정을 추가해야 한다.
 		// 토큰을 발급해서 전송함으로써 처리해준다.
 	}
+	
+		//암호화 모듈 빈을 생성
+		@Bean
+		PasswordEncoder passwordEncoder () {
+			return new BCryptPasswordEncoder();
+		}
+	
 }
