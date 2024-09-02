@@ -3,7 +3,7 @@
  * 해당 목록을 정의한 열거형, 상수 컨셉
  */
 
-package com.example.demo.Service;
+package com.example.demo.config;
 
 import lombok.Getter;
 

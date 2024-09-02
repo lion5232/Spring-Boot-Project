@@ -26,7 +26,7 @@
 			            <thead   style="background-color: rgb(55, 221, 152);">
 			                <!-- 컬럼명 -->
 			                <tr>
-			                    <th>No</th>
+			                    <th>글번호</th>
 			                    <th>제목</th>
 			                    <th>작성일시</th>
 			                </tr>
@@ -46,7 +46,9 @@
 			                -->
 			                <!-- posts 데이터에서 하나씩 꺼내서 데이터 한출 반복적으로 표현 -->
 			                <tr th:each="post, loop : ${post}"> <!--  반복되는 가장 상위 요소 <= 반복문 적용 -->
-								<td th:text=" ${post.id}"></td>
+ 						  	<!--/* 데이터까 뿌려지는 순번대로 표기됨 */-->
+								<td>[[ ${ loop.count } ]]</td>
+<!-- 								<td th:text=" ${post.id}"></td> -->
 								<td>
 									<a th:href="@{|/Acco/detail/${post.id}|}"  th:text=" ${post.subject} " ></a>
 								</td>

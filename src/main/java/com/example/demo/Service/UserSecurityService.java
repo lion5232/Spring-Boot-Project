@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.SnsUser;
 import com.example.demo.Repository.UserRepository;
+import com.example.demo.config.UserRole;
 
 @Service
 public class UserSecurityService implements UserDetailsService{

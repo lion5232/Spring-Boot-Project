@@ -12,8 +12,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.example.demo.Service.UserRole;
-
 //스프링의 환경 설정 파일이다
 @Configuration
 //스프링 시큐리티의 제어를 받는다 -> 보안 정책을 커스텀할수 있다 -> 스프링 시큐리티의 활성화
@@ -32,12 +30,8 @@ public class SecurityConfig {
 				// 모든 URL과 정적데이터 URL까지 허용
 				.authorizeHttpRequests( ( a ) ->a
 //						.requestMatchers(new AntPathRequestMatcher("/**")).permitAll() 
-						.requestMatchers("/Acco/create").authenticated()
-						.requestMatchers("/Acco/modify/**").authenticated()
-						.requestMatchers("/Acco/delete/**").authenticated()
-						.requestMatchers("/review/create/**").authenticated()
-						.requestMatchers("/review/modify/**").authenticated()
-						.requestMatchers("/review/delete/**").authenticated()
+						.requestMatchers("/Acco/create", "/Acco/modify/**", "/Acco/delete/**", 
+								"/review/create/**", "/review/modify/**", "/review/delete/**").authenticated()
 						.anyRequest().permitAll()
 				)
 				//서비스할때는 비활성 필요 ----------------------
