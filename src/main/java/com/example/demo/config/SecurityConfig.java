@@ -30,30 +30,40 @@ public class SecurityConfig {
 				//http.authorizeHttpRequests : http요청에 대한 인증().
 				// /** => 인증되지 않은 모든 페이지의 요청을 허가한다, 로그인 없이 접근 가능
 				// 모든 URL과 정적데이터 URL까지 허용
-				.authorizeHttpRequests( ( a ) ->a.requestMatchers
-				(new AntPathRequestMatcher("/**")).permitAll() )
-		
-		//서비스할때는 비활성 필요 ----------------------
-		// /h2-console/~ 모든 URL은 csrf에 대한 보안체크 무시한다.
-		.csrf( (b) -> 
-			b.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))) 
-		//h2-console 뒤의 모든 경로에 대해선 CSRF 보호가 필요한 URL 패턴을 설정하지 않고, 모든 URL 패턴에 대해 CSRF 보호를 적용하지 않도록 설정한다.
-		// X-Frame-Options 헤더값을 SAMEORIGIN으로 대체 -> iframe 미로딩되는 문제 해결
-		.headers( (c )  ->c.addHeaderWriter(new XFrameOptionsHeaderWriter(
-				XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN	)) )
-		.formLogin( (f) -> f
-	              .loginPage("/user/login")   // 시큐리티에서 로그인 할때 사용하는 URL등록
-	              // 로그인 URL 매핑하는 설정(라우팅처리) => 컨트롤러
-	              .defaultSuccessUrl("/TourSpot/list")        // 로그인 성공후 자동으로 이동할 페이지 홈페이지로 이동
-				  )
-		.logout((logout)->logout
-				//로그아웃 URL 정의
-				.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
-				//로그아웃 성공하면 이동할 페이지
-				.logoutSuccessUrl("/user/login")
-				//스프링 시큐리티에서 로그인이 성공하면 => 유저 객체를 관리 => 세션관리
-				//로그아웃 = > 세션 삭제 처리
-				.invalidateHttpSession(true)
+				.authorizeHttpRequests( ( a ) ->a
+//						.requestMatchers(new AntPathRequestMatcher("/**")).permitAll() 
+						.requestMatchers("/Acco/create").authenticated()
+						.requestMatchers("/Acco/modify/**").authenticated()
+						.requestMatchers("/Acco/delete/**").authenticated()
+						.requestMatchers("/review/create/**").authenticated()
+						.requestMatchers("/review/modify/**").authenticated()
+						.requestMatchers("/review/delete/**").authenticated()
+						.anyRequest().permitAll()
+				)
+				//서비스할때는 비활성 필요 ----------------------
+				// /h2-console/~ 모든 URL은 csrf에 대한 보안체크 무시한다.
+				.csrf( (b) -> 
+					b.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"))
+				) 
+				//h2-console 뒤의 모든 경로에 대해선 CSRF 보호가 필요한 URL 패턴을 설정하지 않고, 모든 URL 패턴에 대해 CSRF 보호를 적용하지 않도록 설정한다.
+				// X-Frame-Options 헤더값을 SAMEORIGIN으로 대체 -> iframe 미로딩되는 문제 해결
+				.headers( (c )  ->c.addHeaderWriter(new XFrameOptionsHeaderWriter(
+						XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN	)) 
+				)
+				
+				.formLogin( (f) -> f
+			              .loginPage("/user/login")   // 시큐리티에서 로그인 할때 사용하는 URL등록
+			              // 로그인 URL 매핑하는 설정(라우팅처리) => 컨트롤러
+			              .defaultSuccessUrl("/TourSpot/list")        // 로그인 성공후 자동으로 이동할 페이지 홈페이지로 이동
+				)
+				.logout((logout)->logout
+						//로그아웃 URL 정의
+						.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+						//로그아웃 성공하면 이동할 페이지
+						.logoutSuccessUrl("/user/login")
+						//스프링 시큐리티에서 로그인이 성공하면 => 유저 객체를 관리 => 세션관리
+						//로그아웃 = > 세션 삭제 처리
+						.invalidateHttpSession(true)
 				)
 		
 		;

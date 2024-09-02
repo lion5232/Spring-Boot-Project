@@ -15,7 +15,8 @@
         <img src="/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="/" class="d-block "  style="color: black; font-weight: bold " th:text="${ #authentication.name}">사용자명</a>
+      	<a href="#" class="d-block "  style="color: black; font-weight: bold " sec:authorize="isAnonymous()" >로그인 해주세요</a>
+        <a href="#" class="d-block "  style="color: black; font-weight: bold " th:text="${ #authentication.name}" sec:authorize="isAuthenticated()" >사용자명</a>
          
       </div>
     </div>
