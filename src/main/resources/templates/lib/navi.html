@@ -7,19 +7,19 @@
       <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
     </li>
 	<!-- 홈페이지 -->
-    <li class="nav-item d-none d-sm-inline-block">
+    <li class="nav-item  d-sm-inline-block">
       <a href="/" class="nav-link">Home</a>
     </li>
     
-    <li class="nav-item d-none d-sm-inline-block">
+    <li class="nav-item d-sm-inline-block">
       <a href="/TourSpot/list" class="nav-link">관광지</a>
     </li>
     
-    <li class="nav-item d-none d-sm-inline-block">
+    <li class="nav-item  d-sm-inline-block">
       <a href="/meal/list" class="nav-link">음식점</a>
     </li>
     
-     <li class="nav-item d-none d-sm-inline-block">
+     <li class="nav-item   d-sm-inline-block">
       <a href="/Acco/list" class="nav-link">숙박시설</a>
     </li>
   </ul>
@@ -28,13 +28,13 @@
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <!-- 로그인 혹은 로그아웃 -->
-	<li sec:authorize="isAnonymous()" class="nav-item d-none d-sm-inline-block">
+	<li sec:authorize="isAnonymous()" class="nav-item  d-sm-inline-block">
 		<a href="/user/login" class="nav-link">로그인</a>
 	</li>
-	<li sec:authorize="isAuthenticated()" class="nav-item d-none d-sm-inline-block">
+	<li sec:authorize="isAuthenticated()" class="nav-item  d-sm-inline-block">
 		<a href="/user/logout" class="nav-link">로그아웃</a>
 	</li>
-	<li sec:authorize="isAnonymous()" class="nav-item d-none d-sm-inline-block">
+	<li sec:authorize="isAnonymous()" class="nav-item   d-sm-inline-block">
 		<a href="/user/signup" class="nav-link">회원가입</a>
 	</li>
 	<!-- 검색 -->
