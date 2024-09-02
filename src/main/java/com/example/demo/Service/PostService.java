@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Entity.Post;
@@ -15,6 +18,20 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class PostService {
 	private final PostRepository postRepository;
+	
+	//페이징 계산 수
+	private final	int PAGE_SIZE = 10;
+	/**
+	 * 입력: 특정 페이지 번호
+	 * 결과: 해당페이지에 속한 게시물 데이터(DTO 제공, 페이징 객체를 활용 제공)
+	 * 
+	 */
+	public Page<Post> getList(int page) {
+		//내부적으로 특정 위치에서 특정 개수 만큼 jpa를 통해 데이터를  획득하여 Pageable 형태로 반환
+		Pageable pageable = PageRequest.of(page, PAGE_SIZE);
+		return postRepository.findAll( pageable );
+	}
+	
 	
 	public List<Post> getAllPost() {
 		return this.postRepository.findAll();

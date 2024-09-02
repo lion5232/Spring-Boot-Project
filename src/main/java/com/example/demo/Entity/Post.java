@@ -12,11 +12,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Setter
 @Getter
 // your an Entity 넌 엔티티이다.
 @Entity
+@ToString
 public class Post {
 	// 기본키 지정
 	// 기본키는 중복될 수 없으며, 각 엔티티 인스턴스를 유일하게 구분할 수 있습니다.
@@ -30,7 +32,7 @@ public class Post {
 
 	// 컬럼임을 지정 + 문자열의 길이를 직접 지정
     // 한글 200자? ASCII2 200자? 테스트 필요
-    @Column(length = 200)
+    @Column(length = 2048)
     private String subject;
 	
 	 // 컬럼임을 지정 + 텍스트 입력의 크기를 지정, 텍스트를 넣을수 있다 (글자 수 제한 없음) (제약 조건 NOT NULL 값이 반드시 벗겨..입력되야 합니다.)

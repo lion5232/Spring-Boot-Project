@@ -2,6 +2,7 @@ package com.example.demo.Controller;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -38,10 +39,13 @@ public class AccommodationCotroller {
 ////		return "Acco_list";
 ////	}
 	
+	// ~/Acco/list?page=1 이런 방식으로 호출
 	@GetMapping("/list")
-	public String list (Model model) {
+	public String list (Model model , @RequestParam(value="page", defaultValue = "0") int page) {
 		List<Post> post = this.postService.getAllPost();
 		model.addAttribute("post", post);
+		Page<Post> paging = this.postService.getList(page);
+		model.addAttribute("paging", paging);
 		return "list";
 	}
 	
