@@ -28,6 +28,9 @@
             <div class="col-lg-12 col-12">	
 				<!-- 제목, 내용 입력 폼 -->
 				<form method="post" th:object="${postForm}">
+					<!-- 수동설정, csrf 관련 토큰 => 403 에러 회피 전략  -->
+					<input type="hidden" th:name="${ _csrf.parameterName}" 
+								th:value="${_csrf.token}"/>
 						<!-- 
 									- th:object => 세팅 => 오류 메시지창 추가 (th:if 추가하여 오류가 존재할때만 노출)
 									- 오류 발생시(입력 안하고 등록하는 경우), 하위 div가 활성화되어서 메시지가 노출됨 
