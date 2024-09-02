@@ -70,6 +70,15 @@ public class UserController {
 		//향후 이동-> 로그인 화면 (단, 자동 로그인 X상황에서), 기타 메인 사이트 가능
 		return "redirect:/";
 	}
- 
+	
+	/**
+	 * 로그인 관련 화면 매핑
+	 * - 로그인 화면-> 입력 -> 로그인 클릭 -> 로그인 처리(스프링 시큐리티)
+	 * 
+	 */
+	@ GetMapping("/login")
+	public String login() {//스프링 시큐리티에서 바인딩을 할 예정이므로 폼 바인딩은 안한다.
+		return "login_form";
+	}
 	
 }

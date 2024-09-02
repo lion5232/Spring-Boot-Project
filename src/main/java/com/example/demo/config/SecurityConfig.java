@@ -2,6 +2,8 @@ package com.example.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,6 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+import com.example.demo.Service.UserRole;
 
 //스프링의 환경 설정 파일이다
 @Configuration
@@ -37,6 +41,20 @@ public class SecurityConfig {
 		// X-Frame-Options 헤더값을 SAMEORIGIN으로 대체 -> iframe 미로딩되는 문제 해결
 		.headers( (c )  ->c.addHeaderWriter(new XFrameOptionsHeaderWriter(
 				XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN	)) )
+		.formLogin( (f) -> f
+	              .loginPage("/user/login")   // 시큐리티에서 로그인 할때 사용하는 URL등록
+	              // 로그인 URL 매핑하는 설정(라우팅처리) => 컨트롤러
+	              .defaultSuccessUrl("/TourSpot/list")        // 로그인 성공후 자동으로 이동할 페이지 홈페이지로 이동
+				  )
+		.logout((logout)->logout
+				//로그아웃 URL 정의
+				.logoutRequestMatcher(new AntPathRequestMatcher("/user/logout"))
+				//로그아웃 성공하면 이동할 페이지
+				.logoutSuccessUrl("/user/login")
+				//스프링 시큐리티에서 로그인이 성공하면 => 유저 객체를 관리 => 세션관리
+				//로그아웃 = > 세션 삭제 처리
+				.invalidateHttpSession(true)
+				)
 		
 		;
 			
@@ -50,6 +68,14 @@ public class SecurityConfig {
 		@Bean
 		PasswordEncoder passwordEncoder () {
 			return new BCryptPasswordEncoder();
+		}
+		
+		//인증 매니저 빈 생성
+		// 사용자 인증, 권한 부여 프로세스 관장
+		@Bean
+		AuthenticationManager authenticationManager( 
+				AuthenticationConfiguration authenticationConfiguration) throws Exception{
+			return authenticationConfiguration.getAuthenticationManager();
 		}
 	
 }

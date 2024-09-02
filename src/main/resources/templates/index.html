@@ -16,8 +16,9 @@
 	                <button class="Acco">숙박시설</button>
 	            </div>
 	            <div >
-	                <a th:href="@{/user/login}"  class="btn btn-dark">로그인</a>
-	                <a th:href="@{/user/signup}"  class="btn btn-dark">회원가입</a>
+	                <a th:href="@{/user/login}" sec:authorize="isAnonymous()" class="btn btn-dark">로그인</a>
+	                <a th:href="@{/user/logout}" sec:authorize="isAuthenticated()"class="btn btn-dark">로그아웃</a>
+	                <a th:href="@{/user/signup}" sec:authorize="isAnonymous()" class="btn btn-dark">회원가입</a>
 	            </div>
 	
 	<!--             <div class="span"> -->
