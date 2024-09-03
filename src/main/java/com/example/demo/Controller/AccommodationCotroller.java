@@ -40,12 +40,26 @@ public class AccommodationCotroller {
 ////	}
 	
 	// ~/Acco/list?page=1 이런 방식으로 호출
+//	@GetMapping("/list2")
+//	public String list (Model model , @RequestParam(value="page", defaultValue = "0") int page) {
+//		List<Post> post = this.postService.getAllPost();
+//		model.addAttribute("post", post);
+//		Page<Post> paging = this.postService.getList(page);
+//		model.addAttribute("paging", paging);
+//		return "list";
+//	}
+	
+	//검색어 획득, 검색 작업 실제 진행(서비스-레퍼지토리 처리), 타임리프 전달내용(검색어, 페이징 번호)
 	@GetMapping("/list")
-	public String list (Model model , @RequestParam(value="page", defaultValue = "0") int page) {
-		List<Post> post = this.postService.getAllPost();
-		model.addAttribute("post", post);
-		Page<Post> paging = this.postService.getList(page);
+	public String list2(Model model , @RequestParam(value="page", defaultValue = "0") int page,
+			@RequestParam(value="keyword", defaultValue= "") String keyword) {
+		//1. 특정 페이지에 해당되는 페이징 데이터 획득
+		Page<Post> paging = this.postService.getList2(page, keyword);	
+		
+		 
+		model.addAttribute("keyword", keyword);
 		model.addAttribute("paging", paging);
+		
 		return "list";
 	}
 	
