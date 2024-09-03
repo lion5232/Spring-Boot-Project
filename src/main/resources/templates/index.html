@@ -1,56 +1,126 @@
-<html >
+<html>
+
 <head>
-<meta charset="UTF-8">
-<title>Welcome</title>
-<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+	<meta charset="UTF-8">
+	<title>Welcome</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/bootstrap.min.css}">
+	<style>
+		.title {
+			font-size: 8vw;
+			text-align: center;
+			margin-bottom: 0.5vw;
+			cursor: default;
+			position: relative;
+			top: 2vw;
+			text-shadow: 0 1px 0 #CCC,
+				0 2px 0 #CCC,
+				0 3px 0 #CCC,
+				0 4px 0 #CCC,
+				0 5px 0 #CCC,
+				0 6px 0 transparent,
+				0 7px 0 transparent,
+				0 8px 0 transparent,
+				0 9px 0 transparent,
+				0 10px 10px rgba(0, 0, 0, .4);
+
+			animation: bounce .3s ease infinite alternate;
+			animation-delay: .1s;
+		}
+
+		@keyframes bounce {
+			100% {
+				top: -20px;
+				text-shadow: 0 1px 0 #CCC,
+					0 2px 0 #CCC,
+					0 3px 0 #CCC,
+					0 4px 0 #CCC,
+					0 5px 0 #CCC,
+					0 6px 0 #CCC,
+					0 7px 0 #CCC,
+					0 8px 0 #CCC,
+					0 9px 0 #CCC,
+					0 50px 25px rgba(0, 0, 0, .2);
+			}
+		}
+ 
+		.board {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		button {
+			display: flex;
+			justify-content: center;
+			background-color: rgb(55, 221, 152);
+			font-size: 2.1vw;
+			border: 0.18vw solid black;
+			border-radius: 0.8vw;
+			width: 12vw;
+			height: 3.5vw;
+			margin: 0 0.5vw;
+		}
+
+		.user {
+			text-align: center;
+			margin-top: 0.5vw;
+			margin-bottom: -1vw;
+		}
+
+		.btn {
+			font-size: 1.0vw;
+		}
+	</style>
 </head>
 
 <body>
 	<div class="header"></div>
-	<div layout:fragment= "content" class="container">
-	        <div class="main">
-	            <div class="title">Welcome!</div>
-	            <div class="board">
-	                <button class="TourSpot">관광지</button>
-	                <button class="meal">음식점</button>
-	                <button class="Acco">숙박시설</button>
-	            </div>
-	            <div >
-	                <a th:href="@{/user/login}" sec:authorize="isAnonymous()" class="btn btn-dark">로그인</a>
-	                <a th:href="@{/user/logout}" sec:authorize="isAuthenticated()"class="btn btn-dark">로그아웃</a>
-	                <a th:href="@{/user/signup}" sec:authorize="isAnonymous()" class="btn btn-dark">회원가입</a>
-	            </div>
-	
-	<!--             <div class="span"> -->
-	<!--                 <span id="a">🍙</span> -->
-	<!--                 <span id="b">🍕</span> -->
-	<!--                 <span id="c">🍩</span> -->
-	<!--                 <span id="d">🍦</span> -->
-	<!--                 <span id="e">🍺</span> -->
-	<!--                 <span id="f">🍭</span> -->
-	<!--                 <span id="g">🌮</span> -->
-	<!--                 <span id="h">🍟</span> -->
-	<!--                 <span id="i">🍱</span> -->
-	<!--             </div> -->
-	        </div>
-	    </div> 
+	<div layout:fragment="content" class="container">
+		<div class="main">
+			<div class="title">Welcome!</div>
+
+			<div class="board">
+				<button class="TourSpot">관광지</button>
+				<button class="meal">음식점</button>
+				<button class="Acco">숙박시설</button>
+			</div>
+			<div class="user">
+				<a th:href="@{/user/login}" sec:authorize="isAnonymous()" class="btn btn-dark">로그인</a>
+				<a th:href="@{/user/logout}" sec:authorize="isAuthenticated()" class="btn btn-dark">로그아웃</a>
+				<a th:href="@{/user/signup}" sec:authorize="isAnonymous()" class="btn btn-dark">회원가입</a>
+			</div>
+
+			<!--             <div class="span"> -->
+			<!--                 <span id="a">🍙</span> -->
+			<!--                 <span id="b">🍕</span> -->
+			<!--                 <span id="c">🍩</span> -->
+			<!--                 <span id="d">🍦</span> -->
+			<!--                 <span id="e">🍺</span> -->
+			<!--                 <span id="f">🍭</span> -->
+			<!--                 <span id="g">🌮</span> -->
+			<!--                 <span id="h">🍟</span> -->
+			<!--                 <span id="i">🍱</span> -->
+			<!--             </div> -->
+		</div>
+	</div>
 	<div class="footer"></div>
 	<script>
 		const TourSpot = document.querySelector('.TourSpot');
 		TourSpot.addEventListener('click', () => {
-		    location.href = '/TourSpot/list';
+			location.href = '/TourSpot/list';
 		});
 		const Acco = document.querySelector('.Acco');
 		Acco.addEventListener('click', () => {
-		    location.href = '/Acco/list';
+			location.href = '/Acco/list';
 		});
-		
+
 		const meal = document.querySelector('.meal');
 		meal.addEventListener('click', () => {
-		    window.location.href = '/meal/list';
+			window.location.href = '/meal/list';
 		});
-	
-	
+
+
 	</script>
 </body>
+
 </html>
