@@ -31,6 +31,27 @@
 			       		<h3  th:text="${ post.subject}"></h3>
 		        	</div>
 		            <div class="card-body">
+
+		            	<!-- 사진 -->
+                 		<div class="my-3" id="이미지">  
+                 			<th:block th:each = "image: ${post.images}">
+<!-- 								<img th:src="@{${item.getfilePath()}}"alt="게시글 이미지" class="img-fluid" style="width:100%;">  -->
+<!-- 								<img th:src="@{${item.getfilePath()}}" alt="게시글 이미지" class="img-fluid" style="width:100%;"> -->
+								
+<!-- 								<img th:src="@{/pictures/40618e25-428f-42bf-bbd0-30592ed5576c_KakaoTalk_20240730_101147818.jpg}" alt="게시글 이미지" class="img-fluid" style="width:100%;">  -->
+                 			 	 <!-- 이미지 링크를 생성합니다 -->
+<!-- 							        <a th:href="@{${image.filePath}}" class="d-block mb-2"> -->
+<!-- 							            <img th:src="@{${image.filePath}}" alt="게시글 이미지" class="img-fluid" style="width:100%;"> -->
+<!-- 							        </a> -->
+							        <img th:src="@{{filename}(filename=${image.filePath})}" alt="게시글 이미지" class="img-fluid" style="width:100%;">
+<!-- 							        <img th:src="@{http://localhost:9090/pictures/36cde70d-42af-47be-ba3e-fd1a0f43cf6c_wallpaperflare.com_wallpaper.jpg}" alt="게시글 이미지"> -->
+							        
+                 			 	
+                 			 	<p th:text="@{${image.filePath}}"></p> 
+                			</th:block> 
+                			<p th:if="${#lists.isEmpty(post.images)}">이미지가 없습니다.</p> <!-- post.images가 비어있을 때 -->
+						</div>
+
 		                <!--/* 내용 */-->
 		                <div class="card-text" th:text="${ post.content}"></div>
 		                <!--/* 작성시간 */-->

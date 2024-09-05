@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>게시글 작성</title>
+</head>
+<body>
+    <h1 th:text="${pageType}">글 작성</h1>
+    <form th:action="/Acco/create" th:object="${postForm}" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="subject">제목:</label>
+            <input type="text" id="subject" th:field="*{subject}" />
+            <span th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></span>
+        </div>
+        <div>
+            <label for="content">내용:</label>
+            <textarea id="content" th:field="*{content}"></textarea>
+            <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></span>
+        </div>
+        <div>
+            <label for="uploadFile">파일 업로드:</label>
+            <input type="file" id="uploadFile" name="uploadFile" multiple />
+        </div>
+        <button type="submit">제출</button>
+    </form>
+</body>
+</html>
+
+

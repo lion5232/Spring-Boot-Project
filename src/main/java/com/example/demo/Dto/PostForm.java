@@ -1,5 +1,9 @@
 package com.example.demo.Dto;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -18,4 +22,14 @@ public class PostForm {
 	//NULL, 공백 => X
 	@NotEmpty (message="본문 내용을 반드시 입력해야 하는 필수 항목입니다.")//jakarata.vaildation이 여기서 쓴다. hibrate는 DB에서 쓴다.
 	private String content;
+	
+	private List<MultipartFile> uploadFiles; // 여러개의 파일을 위한 리스트
+	
+    public List<MultipartFile> getUploadFiles() {
+        return uploadFiles;
+    }
+
+    public void setUploadFiles(List<MultipartFile> uploadFiles) {
+        this.uploadFiles = uploadFiles;
+    }
 }

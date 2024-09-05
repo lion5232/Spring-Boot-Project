@@ -57,9 +57,7 @@
 							</thead>
 							<tbody>
 								<tr th:each="post, loop : ${paging}">
-									<td th:text="${post.id}" >  
-<!-- 									         [[ ${ loop.count } ]]  -->
-									</td>
+									 <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td> <!-- 게시물 역순으로 번호 출력 -->
 									<td><a th:href="@{|/Acco/detail/${post.id}|}" th:text=" ${post.subject} "></a></td>
 									<td th:text="${ #temporals.format( post.getCreateDate(), 'yyyy-MM-dd HH:MM:ss')  }">
 									</td>
