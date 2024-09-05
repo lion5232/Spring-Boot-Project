@@ -65,6 +65,16 @@
 			right: 10px;
 			/* 오른쪽 버튼 위치 */
 		}
+		    
+       #content {
+           /* border: 2px solid #000000; /* 테두리 색상 및 두께 */
+            padding: 10px; /* 내부 여백 */
+             margin: 10px; /* 외부 여백 */  
+             width: 1100px; /* 일정 크기 (필요에 따라 조정 가능) */  
+            display: inline-block; /* 텍스트 길이에 맞춰서 길이 조정 */
+              max-width: 100%; /* 최대 너비 제한 (화면 크기에 따라 조정) */  
+        }
+     
 	</style>
 
 		<div class="content-header">
@@ -179,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 								<!--/* 내용 */-->
-								<div class="card-text" th:text="${ post.content}"></div>
+								<div class="card-text col-sm-6" id="content" th:text="${ post.content}"></div>
 								<!--/* 작성시간 */-->
 								<div class="badge bg-light text-primary text-start"
 									th:text="${ #temporals.format( post.getCreateDate(), 'yyyy-MM-dd HH:mm:ss')  }">

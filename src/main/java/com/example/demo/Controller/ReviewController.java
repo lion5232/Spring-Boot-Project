@@ -68,8 +68,10 @@ public class ReviewController {
 		  public String modify(ReviewForm reviewForm, @PathVariable("id") Integer id, Model model) {
 			  Review review = this.reviewService.selectOneReview(id);
 			  reviewForm.setContent(review.getContent());
+			  
+			  Integer postId = review.getPost().getId();
 			  //post id를 넘겨 주기 위해 엔티티 받아오고 model로 보내기 
-			  Post post = this.postService.getOnePost(id);
+			  Post post = this.postService.getOnePost(postId);
 			  model.addAttribute("post", post);
 			  model.addAttribute("pageType", "detail");
 			  return "review_form";

@@ -47,12 +47,12 @@ public class Post {
 	// createDate => create_date로 컬럼명이 변경됨(스네이크 스타일)
 	private LocalDateTime createDate;
 	
-	private String filePath; // 파일 경로를 저장할 필드  (getter랑 setter는 자동으로 생성) 	 
+//	private String filePath; // 파일 경로를 저장할 필드  (getter랑 setter는 자동으로 생성) 	 
 	
-	//아직 미구현
-	private String fileName; // 파일 이름를 저장할 필드  (getter랑 setter는 자동으로 생성) 
-	private Long fileSize; // 파일 크기를 저장할 필드
-	
+//	//아직 미구현
+//	private String fileName; // 파일 이름를 저장할 필드  (getter랑 setter는 자동으로 생성) 
+//	private Long fileSize; // 파일 크기를 저장할 필드
+//	
 	
     @Override
 	public String toString() {
@@ -62,10 +62,10 @@ public class Post {
     // ERD 기준 post 문자열(이름) 사용 =>  Review에 실제 구성되어야 함
     // Post가 삭제되면(글이 삭제되면) 연결된 리뷰들도 모두 삭제한다
     // 실제는 노출되지 않게 한다
-    @OneToMany(mappedBy = "post", cascade= CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", cascade= CascadeType.ALL , orphanRemoval = true)
     private List<Review> reviewList;
     
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL , orphanRemoval = true)
     private List<Image> images;
 	
 	 // 특징

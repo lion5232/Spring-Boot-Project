@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -93,25 +94,8 @@ public class PostService {
 		// 커스텀 예외 상황
 		throw new DataNotFoundException("post not Found");
 	}
-	
-	// post create 기능
-//	public void create(String subject, String content , List<String> filePaths) {
-////		// Post 엔티티 생성
-////		Post post = new Post();
-////		// Post 엔티티에 데이터 세팅
-////		post.setSubject(subject);
-////		post.setContent(content);
-//		
-//		//파일 경로 저장
-//		for(String filePath: filePaths) {
-//				saveFilePath(post.getId(), filePath);
-//		}
-//		post.setCreateDate(LocalDateTime.now());
-//		// PostRepository에 save() => 디비에 Post 테이블에 row데이터 1개 저장
-//		this.postRepository.save(post);
-//    }
-	
-	@Transactional
+ 
+ 
 	public void create(Post post, List<String> filePaths) {
 	    // Post 엔티티 저장
 	    Post savedPost = this.postRepository.save(post); 
@@ -122,28 +106,29 @@ public class PostService {
 	}
 	
 	//post 수정하기 기능
-	public void modify(Post post) {
-		this.postRepository.save(post);
+ 
+	public void modify(Post post, List<String> fileNames) {
+		 // 기존 파일 삭제
+		 imageRepository.deleteByPostId(post.getId());
+		    //postRepository.delete(post);
+		 
+		 //게시글 업데이트
+		 this.postRepository.save(post); 
+		 
+		// 파일 경로를 데이터베이스에 저장하는 로직 추가
+        for (String fileName : fileNames) {
+            Image imagePath = new Image();
+            imagePath.setPost(post);
+            imagePath.setFilePath(fileName);
+            imageRepository.save(imagePath);
+        }
 	}
 
 	//post 삭제하기 기능
-	public void delete(Post post) {
+	public void delete(Post post) { 
 		this.postRepository.delete(post);
 	}
-	
-//	 // 파일 경로를 데이터베이스에 저장하는 로직
-//	 @Transactional
-//	public void saveFilePaths(String subject, List<String> filePaths) {
-//		 //Optional<Post> post = postRepository.findBySubject(subject);
-//		 Post post = postRepository.findBySubject(subject);
-//		 if (post != null) {
-//                // 파일 경로를 게시글에 추가 (예: List<String> imagePaths 필드가 있다고 가정)
-//            	//post.setFilePaths(filePaths);
-//	            postRepository.save(post); // 수정된 게시글 저장
-//	        }
-//		 }
 
-	
 	 // 이미지 업로드 및 경로 저장 
     public void saveFilePath(int postId, String filePath) {
 
@@ -153,15 +138,38 @@ public class PostService {
         imagePath.setPost(post); // Post 객체를 설정
         imagePath.setFilePath(filePath);
         imageRepository.save(imagePath);
-     }
-    
- 
- 
-
-
-}
+     } 
+ }
 	
-	
+// post create 기능
+//public void create(String subject, String content , List<String> filePaths) {
+////	// Post 엔티티 생성
+////	Post post = new Post();
+////	// Post 엔티티에 데이터 세팅
+////	post.setSubject(subject);
+////	post.setContent(content);
+//	
+//	//파일 경로 저장
+//	for(String filePath: filePaths) {
+//			saveFilePath(post.getId(), filePath);
+//	}
+//	post.setCreateDate(LocalDateTime.now());
+//	// PostRepository에 save() => 디비에 Post 테이블에 row데이터 1개 저장
+//	this.postRepository.save(post);
+//}
+
+//// 파일 경로를 데이터베이스에 저장하는 로직
+//@Transactional
+//public void saveFilePaths(String subject, List<String> filePaths) {
+//	 //Optional<Post> post = postRepository.findBySubject(subject);
+//	 Post post = postRepository.findBySubject(subject);
+//	 if (post != null) {
+//           // 파일 경로를 게시글에 추가 (예: List<String> imagePaths 필드가 있다고 가정)
+//       	//post.setFilePaths(filePaths);
+//           postRepository.save(post); // 수정된 게시글 저장
+//       }
+//	 }
+
 //	public void savefilePath(String subject, String fileName) {
 //		 // 제목으로 게시글을 찾기
 //		 Optional<Post> optionalPost = postRepository.findBySubject(subject);

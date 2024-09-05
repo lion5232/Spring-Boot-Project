@@ -115,20 +115,15 @@ public class AccommodationCotroller {
 		  
 		  // 문제 없으면 DB에 저장
 		  //post새글 ->db저장 게시글 저장
-		  //this.postService.createAndGetID(postForm.getSubject(), postForm.getContent(), new ArrayList<>()); // 빈 리스트로 초기화
-		  //int post_id = this.postService.createAndGetId(post); // 빈 리스트로 초기화
-		  //int post_id = this.postService.create(postForm.getSubject(), postForm.getContent(), fileNames);
-		    
+  
 		  // 게시글 생성
 		    Post post = new Post();
 		    post.setSubject(postForm.getSubject());
 		    post.setContent(postForm.getContent());
 		    post.setCreateDate(LocalDateTime.now());
 		    
-		  // 파일 업로드 처리 
-	        //String uploadDir = "C:/workspace_2024_springboot_reboot_24_08_19/Study-1/src/main/resources/static/pictures";
-		    String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/pictures/";
-	        System.out.println(uploadDir);
+		  // 파일 업로드 처리   
+		    String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/pictures/"; 
 	        List<String> fileNames = new ArrayList<>(); // 저장할 파일 이름 리스트
 	        
 	        // 파일 업로드 루프
@@ -161,8 +156,7 @@ public class AccommodationCotroller {
 	                    return "redirect:/Acco/create"; // 오류 발생 시 입력 화면으로 리다이렉트
 	                }
 	            }
-	        }   
-	        
+	        }    
 	        // 게시글 저장 및 파일 경로 저장
 	        this.postService.create(post, fileNames);
 		  //post목록으로 이동
@@ -175,22 +169,53 @@ public class AccommodationCotroller {
 		 Post post = this.postService.getOnePost(id);
 		 postForm.setSubject(post.getSubject());
 		 postForm.setContent(post.getContent()); 
+		 //model.addAttribute("postForm", postForm);
 		 model.addAttribute("post", post);
 		 model.addAttribute("pageType", "detail");
 		  return "post_form";
 	  }	 
 	  @PostMapping("/modify/{id}") //post 글 수정
 	  public String modify( @Valid PostForm postForm, BindingResult bindingResult  ,
-			  							  @PathVariable("id") Integer id ) { 
+			  							  @PathVariable("id") Integer id ,
+			  							  @RequestParam("uploadFile") List<MultipartFile> files) { 
 			 // 검증 결과 문제 존재하는가?
 		  if(bindingResult.hasErrors() ) {
 			  //더이상 진행하지 않고, 입력화면으로 이동, postForm 객체, bindingResult에러는 타임리프로 전달 랜더링 
 			  return "post_form";
 		  }
-		 Post post= this.postService.getOnePost(id); // 원본 post데이터 획득(엔티티)
+		  
+		 Post post= this.postService.getOnePost(id); // 수정할 게시글 가져오기 원본 post데이터 획득(엔티티)
 		 post.setSubject(postForm.getSubject());
 		 post.setContent(postForm.getContent());
-		 this.postService.modify(post);
+		 
+		 //파일 업로드 처리
+		 String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/pictures/";
+		 List<String> fileNames = new ArrayList<>();
+
+	        for (MultipartFile file : files) {
+	            if (!file.isEmpty() && file != null) {
+	                UUID uuid = UUID.randomUUID();
+	                String fileName = uuid + "_" + file.getOriginalFilename();
+	                File uploadDirFile = new File(uploadDir);
+
+	                if (!uploadDirFile.exists()) {
+	                    uploadDirFile.mkdirs();
+	                }
+
+	                try {
+	                    File dest = new File(uploadDir, fileName);
+	                    file.transferTo(dest);
+	                    fileNames.add(fileName);
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                    bindingResult.reject("fileUploadError", "파일 업로드 중 오류가 발생했습니다.");
+	                    return "post_form";
+	                }
+	            }
+	        }
+	       //파일 경로 업데이트( 기존 파일 경로를 덮어쓰기 혹은 추가)
+		 this.postService.modify(post, fileNames);
+		 
 		  return "redirect:/Acco/detail/" + id;
 	  }
 	  
