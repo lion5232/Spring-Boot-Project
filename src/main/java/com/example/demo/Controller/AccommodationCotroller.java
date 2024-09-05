@@ -82,9 +82,8 @@ public class AccommodationCotroller {
 			  ReviewForm reviewForm) {
 		 Post post = this.postService.getOnePost(id);
 		 model.addAttribute("post", post);
-		 
- 
-	      return "post_detail";
+		 model.addAttribute("image",post.getImages());
+		 return "post_detail";
 	  } 
 //	  @PostMapping("/create/{id}")
 //	    public String createAnswer(Model model, @PathVariable("id") Integer id, @RequestParam(value="content") String content) {

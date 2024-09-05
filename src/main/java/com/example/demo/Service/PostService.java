@@ -151,7 +151,7 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new RuntimeException("Post not found")); // 게시글이 없을 경우 예외 처리
         imagePath.setPost(post); // Post 객체를 설정
-        imagePath.setFilePath("/pictures/"+filePath);
+        imagePath.setFilePath(filePath);
         imageRepository.save(imagePath);
      }
     
