@@ -32,4 +32,8 @@ public class PostForm {
     public void setUploadFiles(List<MultipartFile> uploadFiles) {
         this.uploadFiles = uploadFiles;
     }
+    
+    //
+    private double latitude;
+    private double longitude;
 }

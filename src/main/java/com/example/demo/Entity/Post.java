@@ -54,6 +54,11 @@ public class Post {
 //	private Long fileSize; // 파일 크기를 저장할 필드
 //	
 	
+	//지도 
+//	   private double latitude;  // 위도 필드 추가
+//	   private double longitude; // 경도 필드 추가
+	
+	
     @Override
 	public String toString() {
 		return "Post [id=" + id + ", subject=" + subject + ", content=" + content + ", createDate=" + createDate + "]";

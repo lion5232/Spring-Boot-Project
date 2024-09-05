@@ -81,7 +81,10 @@ public class AccommodationCotroller {
 			  //폼 객체를 인자로 전달해서 바인딩 하는것만으로도 타임리프에 전달된다.
 			  ReviewForm reviewForm) {
 		 Post post = this.postService.getOnePost(id);
+		 post.getLatitude();
+		 post.getLongitude();
 		 model.addAttribute("post", post);
+		 
 		 model.addAttribute("image",post.getImages());
 		 return "post_detail";
 	  } 
@@ -122,6 +125,9 @@ public class AccommodationCotroller {
 		    post.setContent(postForm.getContent());
 		    post.setCreateDate(LocalDateTime.now());
 		    
+		   //지도 경로 처리
+//		    post.setLatitude(postForm.getLatitude());
+//	        post.setLongitude(postForm.getLongitude());
 		  // 파일 업로드 처리   
 		    String uploadDir = System.getProperty("user.dir") + "/src/main/resources/static/pictures/"; 
 	        List<String> fileNames = new ArrayList<>(); // 저장할 파일 이름 리스트
