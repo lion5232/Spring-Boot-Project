@@ -34,23 +34,4 @@
 		</div> 
 </body>
 
- <script type="text/javascript">
- 		var dw = [[$[post.id]]]
-		var postLatitude = [[${post.latitude}]] ;
-		var postLongitude = [[${post.longitude}]] ;
-        var mapContainer = document.getElementById('map'),
-            mapOption = {
-                center: new kakao.maps.LatLng(postLatitude,postLongitude), 
-                level: 3 
-            };
-
-        var map = new kakao.maps.Map(mapContainer, mapOption);
-
-        // 마커 추가
-        var marker = new kakao.maps.Marker({
-            position: new kakao.maps.LatLng(postLatitude,postLongitude)
-        });
-
-        marker.setMap(map);
-    </script>
 </html>

@@ -75,7 +75,21 @@
             display: inline-block; /* 텍스트 길이에 맞춰서 길이 조정 */
               max-width: 100%; /* 최대 너비 제한 (화면 크기에 따라 조정) */  
         }
-     
+     	
+     	/*여긴 지도 */
+     	 div.map {
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        height: 20vw;
+        margin-top: 1vw;
+        margin-bottom: 1vw;
+    }
+
+    div#map {
+        width: 60%;
+        height: 100%;
+    }
 	</style>
 
 		<div class="content-header">
@@ -145,6 +159,7 @@
 									</div>
 								</div>
 
+
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', () => {
     let currentIndex = 0;
@@ -191,14 +206,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 								<!--/* 내용 */-->
 								<div class="card-text col-sm-6" id="content" th:text="${ post.content}"></div>
+								
+								                <div class="map">
+								                    <div id="map"></div>
+								                </div>
+								                <p th:text="@{${post.latitude}}"></p>   
+								                <p th:text="@{${post.longitude}}"></p>   
+								
 								<!--/* 작성시간 */-->
 								<div class="badge bg-light text-primary text-start"
 									th:text="${ #temporals.format( post.getCreateDate(), 'yyyy-MM-dd HH:mm:ss')  }">
 								</div>
-								<!--/* 지도 표시 부분 추가 */ -->
-			                    <div class="map_wrap">
-			                        <div id="map" style="width:100%;height:500px;"></div>
-			                    </div>
 							</div>
 							<!--  수정 및 삭제 버튼 추가 -->
 
@@ -212,6 +230,7 @@ document.addEventListener('DOMContentLoaded', () => {
 							</div>
 						</div>
 					</div>
+					
 
 					<!-- 리뷰 등록 -->
 					<div class="container my-3">
@@ -272,4 +291,38 @@ document.addEventListener('DOMContentLoaded', () => {
 			</div>
  
 	</section>
+	
+	<!--  지도 관련 js -->
+	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ecad3be9bf19b5169d31bfc7e2f50a68&libraries=services"></script> 
+	<script>
+	  /*<![CDATA[*/
+    document.addEventListener('DOMContentLoaded', function () {
+        // Thymeleaf를 사용하여 서버 측에서 lat와 lng 값을 설정
+//         const lat = 	36.48941232358815 ;
+//         const lng = 127.2562012597075;
+
+//오류로 뜨지만 값은 나옴. parseFloat값을 문자열을 숫자로 바꾸기 위해 사용. 안써도 값을 나옴.
+        const lat = parseFloat([[${post.latitude}]]);
+        const lng = parseFloat([[${post.longitude}]]); 
+
+        if ( !isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0) { // lat와 lng 값이 0이 아닐 때만 지도 출력
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                mapOption = {
+                    center: new kakao.maps.LatLng(lat, lng), // 지도의 중심좌표
+                    level: 3 // 지도의 확대 레벨
+                };
+            var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+            // 마커가 표시될 위치입니다
+            var markerPosition = new kakao.maps.LatLng(lat, lng);
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+            // 마커가 지도 위에 표시되도록 설정합니다
+            marker.setMap(map);
+        } else {
+            document.querySelector('div.map').style.display = 'none'; // lat와 lng 값이 0일 때 map div 숨김
+        }
+    });
+	</script>
 </div> 

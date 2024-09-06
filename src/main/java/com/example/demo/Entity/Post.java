@@ -55,8 +55,12 @@ public class Post {
 //	
 	
 	//지도 
-//	   private double latitude;  // 위도 필드 추가
-//	   private double longitude; // 경도 필드 추가
+    @Column(nullable = true)
+    private Double latitude;  // 위도 필드
+
+    @Column(nullable = true)
+    private Double longitude; // 경도 필드
+
 	
 	
     @Override

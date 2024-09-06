@@ -116,19 +116,18 @@
 			        <div id="pagination"></div>
 			    </div>
 			</div>
-
-<!-- 							<div> -->
-<!--                             	<label for="keyword">위치 검색 :</label> -->
-<!--                             	<input type="text" id="keyword" size="15">  -->
-<!--                             	<button onclick="searchPlaces(); return false;">검색하기</button>  -->
-<!--                             	<div id="map" style="width:100%;height:350px;"></div> -->
-<!--                         	</div> -->
                         	
-<!--                         	<input type="hidden" id="lat" th:field="*{latitude}"/> -->
-<!--                         	<input type="hidden" id="lng" th:field="*{longitude}"/> -->
+<!-- 						  위도와 경도를 저장할 hidden 필드 -->
+<!-- 						    <input type="hidden" th:field="*{latitude}" id="latitude"> -->
+<!-- 						    <input type="hidden" th:field="*{longitude}" id="longitude">				 -->
 							
-							
-							
+							    <!-- 위도와 경도를 화면에 표시할 요소 -->
+							    <div class="my-3"  >
+							        <label class="form-label">선택한 위도</label> 
+							         <input type="text" id="lat" readonly name="latitude" value="0.0">
+							         <label  class="form-label">선택한 경도</label>
+							          <input type="text" id="lng" readonly name="longitude" value="0.0">
+							    </div> 
 							<!-- 파일 업로드 부분 -->
 							<div class="my-3" id="fileForm"> 
 									<div class="form-group">
@@ -150,10 +149,11 @@
 	
 	<script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=ecad3be9bf19b5169d31bfc7e2f50a68&libraries=services"></script>
  
- <script>
+ <script type="text/javascript"> 
 //마커를 담을 배열입니다
  var markers = [];
 
+// 기본 경로
 var mapContainer = document.getElementById('map'), 
     mapOption = {
         center: new kakao.maps.LatLng(36.5099, 127.2657), 
@@ -229,7 +229,7 @@ function displayPlaces(places) {
         // 마커와 검색결과 항목에 mouseover 했을때
         // 해당 장소에 인포윈도우에 장소명을 표시합니다
         // mouseout 했을 때는 인포윈도우를 닫습니다
-        (function(marker, title) {
+        (function(marker, title, place, index) {
             kakao.maps.event.addListener(marker, 'mouseover', function() {
                 displayInfowindow(marker, title);
             });
@@ -237,15 +237,43 @@ function displayPlaces(places) {
             kakao.maps.event.addListener(marker, 'mouseout', function() {
                 infowindow.close();
             });
-
+            // 어디 클릭 => 마커를 클릭했을때 호출되는 리스너
+            kakao.maps.event.addListener(marker, 'click', function () {
+            	  // `places` 배열에서 클릭된 항목의 인덱스를 사용하여 위도와 경도를 가져옵니다.
+                var lat = places[index].y;
+                var lng = places[index].x;
+                saveLatLng(lat, lng);
+            }); 
+ 			//아이템에 마우스 올리시 인포윈도우 생성
             itemEl.onmouseover =  function () {
                 displayInfowindow(marker, title);
             };
-
+			//아이템에 마우스 내릴시 인포윈도우 닫기
             itemEl.onmouseout =  function () {
                 infowindow.close();
             };
-        })(marker, places[i].place_name);
+			// itemEl이라는 html 요소를 클릭 했을때... 배열에서 위도와 경도 가져오기
+            itemEl.onclick = function() {
+                // `places` 배열에서 클릭된 항목의 인덱스를 사용하여 위도와 경도를 가져옵니다.
+
+                var lat = places[index].y;
+                var lng = places[index].x;
+                saveLatLng(lat, lng); 
+            };
+            
+            
+            //맵에 클릭했을때 위도 와 경도 구하기 (필요 없음)
+//             kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+//  					var latlng = mouseEvent.latLng;
+// // 	            	var message = '클릭한 위치의 위도는 ' + latlng.getLat() + ' 이고, ';
+// // 	            	 message += '경도는 ' + latlng.getLng() + ' 입니다';
+// // 	            	 var resultDiv = document.getElementById('result'); 
+// // 	            	 resultDiv.innerHTML = message;
+// 					document.getElementById('lat').value = latlng.getLat();
+// 	            	 document.getElementById('lng').value = latlng.getLng();
+// 	            	 document.getElementById('placesList').innerHTML = ''; 
+// 	            });
+        })(marker, places[i].place_name, places[i], i);
 
         fragment.appendChild(itemEl);
     }
@@ -256,8 +284,7 @@ function displayPlaces(places) {
 
     // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
     map.setBounds(bounds);
-}
-
+} 
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
 
@@ -357,13 +384,13 @@ function removeAllChildNods(el) {
         el.removeChild (el.lastChild);
     }
 }
+ 
+ //위치한 위도와 경도를 lat과 lng에 전달
+function saveLatLng(lat, lng) {
+    document.getElementById('lat').value = lat;
+    document.getElementById('lng').value = lng; 
+}
+ 
 </script>
 	
 </div>
- 
- 
-
-
-
-
-
